@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>User List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/userlist.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div th:replace="include/magic :: menu"></div>
+        <br><br><br>
+        <div style="margin-top:40px;font-size:25px">Registruoti vartotojai:</div>
+        <span th:utext="${actionMessage}" style="color:red"></span>
+        <table id="t02">
+            <tr>
+                <th>vardas</th>
+                <th>pavardė</th>
+                <th>username</th>
+                <th>el.paštas</th>
+                <th>user_level</th>
+                <th>login_date</th>
+                <th>veiksmai</th>
+            </tr>
+            <tr th:each="u : ${users}">
+                <td th:text="${u.firstName}"></td>
+                <td th:text="${u.lastName}"></td>
+                <td th:text="${u.username}"></td>
+                <td th:text="${u.email}"></td>
+                <td th:text="${u.userLevel}"></td>
+                <td th:text="${u.loginDate}"></td>
+                <td>
+                    <form th:action="@{/admin/removeUser}" method="post">
+                        <input type="hidden" name="uname" th:value="${u.username}"/>
+                        <button class="btn btn-sm btn-danger btn-block" name="Submit" type="Submit" th:text="Šalinti"></button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <div th:replace="include/footer :: footer"></div>
+    </div>
+</body>
+</html>
